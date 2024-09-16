@@ -405,4 +405,29 @@ public final class Mathx {
             int xd = (int) (Math.random()*15);
         }
     }
+
+    public static Quadratic quadraticFormula(double a, double b, double c){
+        double X1=0.0,X2=0.0, discriminate;
+        double numerator01, denominator,numerator02;
+        try{
+            Double.parseDouble(String.valueOf(a));
+            Double.parseDouble(String.valueOf(b));
+            Double.parseDouble(String.valueOf(c));
+            discriminate = Mathx.pow(b,2) - (4*a*c);
+
+            if (discriminate < 0){
+                return new Quadratic();
+            }
+            numerator01 = -(b) + Mathx.sqrt(discriminate);
+            denominator = 2*a;
+
+            numerator02 = -(b) - Mathx.sqrt(discriminate);
+
+            X1=numerator01/ denominator;
+            X2=numerator02/denominator;
+        }catch (NumberFormatException e){
+            System.out.println(e.getMessage());
+        }
+        return new Quadratic(X1,X2);
+    }
 }
