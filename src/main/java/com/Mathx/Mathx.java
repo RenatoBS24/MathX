@@ -406,7 +406,7 @@ public final class Mathx {
         }
     }
 
-    public static Quadratic quadraticFormula(double a, double b, double c){
+    public static Quadratic getQuadratic(double a, double b, double c){
         double X1=0.0,X2=0.0, discriminate;
         double numerator01, denominator,numerator02;
         try{
