@@ -1,5 +1,10 @@
 package com.Mathx;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public final class Mathx {
     public static final double E = 2.7182818284;
     public static final double PI = 3.14159265358979323846;
@@ -429,5 +434,48 @@ public final class Mathx {
             System.out.println(e.getMessage());
         }
         return new Quadratic(X1,X2);
+    }
+
+    public static Statistics statisUngroupData(ArrayList<Double> data){
+        double median=0.0, media=0.0, mode=0.0;
+        if (!data.isEmpty()){
+            List<Double> dataSort =  data.stream().sorted().toList();
+            int size = dataSort.size();
+            media = dataSort.stream().reduce(0.0, Double::sum)/size;
+            median = median(dataSort,size);
+            mode= modeValue(dataSort);
+        }
+        return new Statistics(media,median,mode);
+    }
+
+    private static double median(List<Double> data,int size){
+        double median;
+        if (size%2==0){
+            int pos01 = (size/2)-1;
+            int pos02 = pos01+1;
+
+            median = (data.get(pos01) + data.get(pos02)) /2;
+        }else{
+            int pos = (size+1)/2;
+            median = data.get(pos-1);
+        }
+        return median;
+    }
+
+    private static double modeValue(List<Double> data){
+        double mostFrequentlyValue=0.0;
+        int maxCount=0;
+        HashMap<Double,Integer> frecuencia = new HashMap<>();
+        for (double item: data) {
+            frecuencia.put(item,frecuencia.getOrDefault(item,0)+1);
+        }
+
+        for (Map.Entry<Double,Integer> entry: frecuencia.entrySet()) {
+            if (entry.getValue() > maxCount) {
+                maxCount = entry.getValue();
+                mostFrequentlyValue = entry.getKey();
+            }
+        }
+        return mostFrequentlyValue;
     }
 }
